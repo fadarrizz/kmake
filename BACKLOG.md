@@ -27,7 +27,7 @@ working checklist + locked decisions.
   - [x] 0a. Prove a `.kts` runs at all (`kotlinc -script spike/hello.kts`)
   - [x] 0b. Scripting spike: a `.kts` that calls into our own compiled Kotlin (via `-cp`)
 - [x] **1. Project scaffolding** — Gradle (Kotlin DSL) + wrapper, Clikt dep, source layout, runnable `main`. *(Logging lib deferred to step 5; subpackages created as we add code.)*
-- [ ] **2. Core domain model** — `Task(name, description, deps, action: suspend () -> Unit)` + `TaskRegistry`
+- [x] **2. Core domain model** — `Task(name, description, deps, action: suspend () -> Unit)` + `TaskRegistry` (with unit tests, TDD)
 - [ ] **3. Minimal DSL** — `task(name) { description / dependsOn / action }` registers into the registry
 - [ ] **4. Dependency graph + topo sort** — DFS (cycle detection + ordering in one pass); **unit tests**; name the actual cycle path (`a → b → c → a`) and unknown-dep errors
 - [ ] **5. Sequential executor** — `runBlocking`, log start/end per task, fail fast on first error
