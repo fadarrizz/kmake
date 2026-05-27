@@ -1,36 +1,74 @@
 # kmake
 
-Build a command-line task runner written in Kotlin that lets developers define tasks, their dependencies, and execution rules in a Kotlin-based DSL — providing a more type-safe, ergonomic alternative to shell scripts and Makefiles for project automation.
-What it's based on
-The core concept comes from make (1976, Unix), the original build automation tool. make lets you declare:
+A command-line task runner with a type-safe **Kotlin DSL** — a more ergonomic
+alternative to Makefiles and shell scripts for project automation.
 
-Targets (named tasks)
-Dependencies (other targets that must run first)
-Recipes (shell commands to execute)
+You declare tasks, their dependencies, and what they do in a `tasks.kmake.kts`
+file. kmake resolves the dependency graph and runs the tasks in the right order.
 
-make then computes a dependency graph and runs tasks in topological order, skipping work that's already up-to-date (based on file timestamps).
-Modern descendants worth looking at for inspiration:
+> **Status: early work in progress.** This is a learning project (Kotlin/JVM) being
+> built step by step. The dependency engine and DSL aren't wired up yet — see
+> [`BACKLOG.md`](BACKLOG.md) for the roadmap and current progress.
 
-Gradle (Kotlin/Groovy DSL, JVM-focused, heavyweight)
-Just (a simpler command runner, no dependency graph)
-Task (YAML-based, Go)
-Bazel / Buck (hermetic, large-scale)
-npm scripts (minimal, no dependencies between scripts)
+## Why
 
-Where your tool fits
-The gap: Makefiles have cryptic syntax and poor IDE support; Gradle is overkill for simple automation; shell scripts get unwieldy fast. A Kotlin-based DSL gives you:
+Makefiles have cryptic syntax and poor IDE support; full build tools like Gradle are
+overkill for simple automation; shell scripts get unwieldy fast. Defining tasks in
+Kotlin gives you:
 
-Type safety and IDE autocomplete
-Real control flow (loops, conditionals, functions)
-Easy access to the JVM ecosystem
-Coroutines for parallel task execution
+- **Type safety and IDE autocomplete** — your task file is real, checked code.
+- **Real control flow** — loops, conditionals, and functions, not string templating.
+- **The JVM ecosystem** at your fingertips.
+- **Coroutines** as a foundation for parallel execution (planned).
 
-Core capabilities to consider for the backlog
+## The idea
 
-Task definition DSL (name, description, dependencies, action block)
-Dependency graph resolution and cycle detection
-Parallel execution of independent tasks
-File-based incremental builds (skip if inputs unchanged)
-CLI argument parsing and task discovery
-Output streaming and logging
-Configuration loading (a tasks.kt or similar entry point — likely via Kotlin scripting / kotlinc -script)
+A `tasks.kmake.kts` file describes your tasks. *(Target syntax — still being built; may evolve.)*
+
+```kotlin
+task("clean") {
+    description = "Remove build output"
+    action { sh("rm -rf build") }
+}
+
+task("build") {
+    description = "Compile the project"
+    dependsOn("clean")
+    action { sh("./gradlew assemble") }
+}
+
+task("test") {
+    description = "Run the test suite"
+    dependsOn("build")
+    action { sh("./gradlew test") }
+}
+```
+
+Then from the command line:
+
+```console
+$ kmake test      # runs clean → build → test, each exactly once, in dependency order
+$ kmake --list    # list all available tasks with their descriptions
+```
+
+## Building from source
+
+Requires a JDK (21+). The Gradle wrapper handles the rest — no separate Gradle install needed.
+
+```console
+$ ./gradlew build   # compile and test
+$ ./gradlew run     # run kmake (currently a placeholder CLI)
+```
+
+## Inspiration
+
+- **[make](https://en.wikipedia.org/wiki/Make_(software))** (1976) — the original: targets, dependencies, topological execution.
+- **[Just](https://github.com/casey/just)** — a simpler command runner (no dependency graph).
+- **[Task](https://taskfile.dev/)** — YAML-based task runner (Go).
+- **[Gradle](https://gradle.org/)** — the heavyweight JVM build tool whose Kotlin DSL inspired this one.
+
+## Development
+
+This repo is built as a guided learning project. See [`BACKLOG.md`](BACKLOG.md) for the
+ordered plan and design decisions, and [`CLAUDE.md`](CLAUDE.md) for the working setup
+(toolchain versions, editor/LSP notes).
