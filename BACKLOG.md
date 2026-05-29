@@ -29,7 +29,7 @@ working checklist + locked decisions.
 - [x] **1. Project scaffolding** — Gradle (Kotlin DSL) + wrapper, Clikt dep, source layout, runnable `main`. *(Logging lib deferred to step 5; subpackages created as we add code.)*
 - [x] **2. Core domain model** — `Task(name, description, deps, action: suspend () -> Unit)` + `TaskRegistry` (with unit tests, TDD)
 - [x] **3. Minimal DSL** — `task(name) { description / dependsOn / action }` registers into the registry
-- [ ] **4. Dependency graph + topo sort** — DFS (cycle detection + ordering in one pass); **unit tests**; name the actual cycle path (`a → b → c → a`) and unknown-dep errors
+- [x] **4. Dependency graph + topo sort** — DFS (cycle detection + ordering in one pass); **unit tests**; name the actual cycle path (`a → b → c → a`) and unknown-dep errors
 - [ ] **5. Sequential executor** — `runBlocking`, log start/end per task, fail fast on first error
 - [ ] **6. Script loading** — replace hardcoded registry with the custom script definition (implicit receiver so `task(...)` needs no imports)
 - [ ] **7. CLI entry point** — `kmake <task>` as a positional dispatch (task names are runtime values, not Clikt subcommands); `--list`, `--help`, `-f <file>`, file discovery
