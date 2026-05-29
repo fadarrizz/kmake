@@ -9,6 +9,7 @@ repositories {
 
 dependencies {
     implementation("com.github.ajalt.clikt:clikt:5.0.3") // CLI argument parsing
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
 
     testImplementation(kotlin("test")) // for unit tests
 }
