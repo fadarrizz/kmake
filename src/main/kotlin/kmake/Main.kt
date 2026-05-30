@@ -1,5 +1,10 @@
 package kmake
 
+import kmake.script.ScriptLoader
+import java.io.File
+
 fun main() {
-    println("kmake - coming soon")
+    val registry = ScriptLoader().load(File("tasks.kmake.kts"))
+
+    println(registry.all.map { it.name })
 }

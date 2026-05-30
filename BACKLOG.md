@@ -31,7 +31,7 @@ working checklist + locked decisions.
 - [x] **3. Minimal DSL** — `task(name) { description / dependsOn / action }` registers into the registry
 - [x] **4. Dependency graph + topo sort** — DFS (cycle detection + ordering in one pass); **unit tests**; name the actual cycle path (`a → b → c → a`) and unknown-dep errors
 - [x] **5. Sequential executor** — `runBlocking`, log start/end per task, fail fast on first error
-- [ ] **6. Script loading** — replace hardcoded registry with the custom script definition (implicit receiver so `task(...)` needs no imports)
+- [x] **6. Script loading** — replace hardcoded registry with the custom script definition (implicit receiver so `task(...)` needs no imports)
 - [ ] **7. CLI entry point** — `kmake <task>` as a positional dispatch (task names are runtime values, not Clikt subcommands); `--list`, `--help`, `-f <file>`, file discovery
 - [ ] **8. `sh(...)` helper** — `ProcessBuilder("sh", "-c", cmd)` (never `split(" ")`); stream stdout/stderr; non-zero exit → throw
 - [ ] **9. Error handling + exit codes** — non-zero on failure; clear messages; stack traces only with `--verbose`
