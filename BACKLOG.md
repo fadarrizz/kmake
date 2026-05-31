@@ -19,7 +19,7 @@ working checklist + locked decisions.
 | Dependencies | referenced **by name** (string) | validated at graph-resolution time; known type-safety tradeoff |
 | Scripting | **custom script definition** | prototype with `kotlin-main-kts` host first, then migrate |
 | Distribution | Gradle `application` plugin + `installDist` | gives a runnable `kmake` launcher |
-| Task file | `tasks.kmake.kts` (TBD) + `-f` override | discover by walking up from cwd, like `make` finds `Makefile` |
+| Task file | `tasks.kmake.kts` (TBD) + `-f` override | discover by walking up from cwd, like `git`/`just`/`cargo` find their root file (note: `make` does *not* walk up) |
 
 ## Backlog (ordered — each builds on the last)
 
@@ -32,7 +32,7 @@ working checklist + locked decisions.
 - [x] **4. Dependency graph + topo sort** — DFS (cycle detection + ordering in one pass); **unit tests**; name the actual cycle path (`a → b → c → a`) and unknown-dep errors
 - [x] **5. Sequential executor** — `runBlocking`, log start/end per task, fail fast on first error
 - [x] **6. Script loading** — replace hardcoded registry with the custom script definition (implicit receiver so `task(...)` needs no imports)
-- [ ] **7. CLI entry point** — `kmake <task>` as a positional dispatch (task names are runtime values, not Clikt subcommands); `--list`, `--help`, `-f <file>`, file discovery
+- [x] **7. CLI entry point** — `kmake <task>` as a positional dispatch (task names are runtime values, not Clikt subcommands); `--list`, `--help`, `-f <file>`, file discovery
 - [ ] **8. `sh(...)` helper** — `ProcessBuilder("sh", "-c", cmd)` (never `split(" ")`); stream stdout/stderr; non-zero exit → throw
 - [ ] **9. Error handling + exit codes** — non-zero on failure; clear messages; stack traces only with `--verbose`
 - [ ] **10. README + example `tasks.kmake.kts`** — realistic build/test/deploy tasks; dogfood the DSL on kmake itself

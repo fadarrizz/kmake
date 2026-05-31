@@ -15,7 +15,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-scripting-jvm:$kotlinVersion")
     implementation("org.jetbrains.kotlin:kotlin-scripting-jvm-host:$kotlinVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
-    implementation("com.github.ajalt.clikt:clikt:5.0.3") // CLI argument parsing
+    implementation("com.github.ajalt.clikt:clikt:5.1.0") // CLI argument parsing
 
     testImplementation(kotlin("test")) // for unit tests
 }

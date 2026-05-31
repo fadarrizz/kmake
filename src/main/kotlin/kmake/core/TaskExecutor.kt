@@ -8,7 +8,7 @@ class TaskExecutor {
             for (task in tasks) {
                 println("Start: ${task.name}")
                 task.action()
-                println("Done: ${task.name}")
+                println("Done: ${task.name}\n")
             }
         }
     }
