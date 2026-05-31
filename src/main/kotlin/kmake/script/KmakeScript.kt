@@ -18,7 +18,7 @@ object KmakeScriptConfiguration: ScriptCompilationConfiguration({
     jvm {
         dependenciesFromCurrentContext(wholeClasspath = true)
     }
-    defaultImports("kmake.core.Task", "kmake.dsl.task")
+    defaultImports("kmake.core.Task", "kmake.dsl.task", "kmake.dsl.sh")
     implicitReceivers(TaskRegistry::class)
 }) {
     private fun readResolve(): Any = KmakeScriptConfiguration

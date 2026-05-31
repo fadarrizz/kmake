@@ -9,6 +9,7 @@ import com.github.ajalt.clikt.parameters.options.option
 import kmake.cli.discoverTasksFile
 import kmake.core.DependencyResolver
 import kmake.core.TaskExecutor
+import kmake.dsl.sh
 import kmake.script.ScriptLoader
 import java.io.File
 
