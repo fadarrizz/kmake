@@ -11,7 +11,7 @@ class DependencyResolverTest {
         val registry = TaskRegistry()
         val resolver = DependencyResolver(registry)
 
-        assertFailsWith<IllegalArgumentException> { resolver.resolve("a") }
+        assertFailsWith<UnknownTaskException> { resolver.resolve("a") }
     }
 
     @Test
@@ -96,7 +96,7 @@ class DependencyResolverTest {
         val task = Task("a", "", listOf("x"))
         registry.register(task)
 
-        assertFailsWith<IllegalArgumentException> { resolver.resolve("a") }
+        assertFailsWith<UnknownTaskException> { resolver.resolve("a") }
     }
 
     @Test

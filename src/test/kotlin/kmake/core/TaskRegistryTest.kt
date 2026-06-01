@@ -1,5 +1,6 @@
 package kmake.core
 
+import kmake.KmakeException
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -25,7 +26,7 @@ class TaskRegistryTest {
         registry.register(task1)
 
         val task2 = Task("a task")
-        assertFailsWith<IllegalArgumentException> {
+        assertFailsWith<KmakeException> {
             registry.register(task2)
         }
     }

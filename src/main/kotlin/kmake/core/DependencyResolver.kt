@@ -1,10 +1,11 @@
 package kmake.core
 
-enum class Status {
-    PROCESSING, PROCESSED
-}
+import kmake.KmakeException
 
-class DependencyCycleException(message: String): Exception(message)
+enum class Status { PROCESSING, PROCESSED }
+
+class DependencyCycleException(message: String) : KmakeException(message)
+class UnknownTaskException(message: String) : KmakeException(message)
 
 class DependencyResolver(private val registry: TaskRegistry) {
     fun resolve(target: String): List<Task> = Resolution(registry).resolve(target)
@@ -15,11 +16,8 @@ class DependencyResolver(private val registry: TaskRegistry) {
         val path = mutableListOf<Task>()
 
         fun resolve(target: String): List<Task> {
-            val task = registry[target]
-            require(task != null) { "Task '$target' is not registered" }
-
+            val task = registry[target] ?: throw UnknownTaskException("Task '$target' is not registered")
             dfs(task)
-
             return result
         }
 
@@ -41,7 +39,7 @@ class DependencyResolver(private val registry: TaskRegistry) {
 
             for (dep in task.dependencies) {
                 val depTask = registry[dep]
-                require(depTask != null) { "Task '${task.name}' depends on unknown task '$dep'" }
+                    ?: throw UnknownTaskException("Task '${task.name}' depends on unknown task '$dep'")
                 dfs(depTask)
             }
 
