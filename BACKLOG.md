@@ -35,7 +35,7 @@ working checklist + locked decisions.
 - [x] **7. CLI entry point** — `kmake <task>` as a positional dispatch (task names are runtime values, not Clikt subcommands); `--list`, `--help`, `-f <file>`, file discovery
 - [x] **8. `sh(...)` helper** — `ProcessBuilder("sh", "-c", cmd)` (never `split(" ")`); stream stdout/stderr; non-zero exit → throw
 - [x] **9. Error handling + exit codes** — non-zero on failure; clear messages; stack traces only with `--verbose`
-- [ ] **10. README + example `tasks.kmake.kts`** — realistic build/test/deploy tasks; dogfood the DSL on kmake itself
+- [x] **10. README + example `tasks.kmake.kts`** — realistic build/test/deploy tasks; dogfood the DSL on kmake itself
 
 ## Notes / gotchas
 

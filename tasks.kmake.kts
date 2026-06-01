@@ -1,16 +1,20 @@
+task("check") {
+    description = "Compile and test"
+    dependsOn("build", "test")
+}
+
+task("clean") {
+    description = "Remove build output"
+    action { sh("rm -rf build") }
+}
+
 task("build") {
-    description = "compiles the thing"
-    action { println("building...") }
+    description = "Compile the project"
+    action { sh("./gradlew assemble") }
 }
 
 task("test") {
+    description = "Run the test suite"
     dependsOn("build")
-    action { println("testing...") }
-}
-
-task("greet") {
-    action {
-        sh("echo building && echo done")
-        sh("false")
-    }
+    action { sh("./gradlew test") }
 }
